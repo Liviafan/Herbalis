@@ -35,7 +35,7 @@ public class CharacterController2D : MonoBehaviour
     public bool isStop = true;
     [SerializeField]
     private bool isInventory;         // флаг предмета инвентаря
-    public bool isAction; 
+    public bool isAction;
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +59,7 @@ public class CharacterController2D : MonoBehaviour
             UpdateFlip();
             UpdateMoveLadder();
             Jump();
-
+            Action();
         }
         else
         {
@@ -67,8 +67,8 @@ public class CharacterController2D : MonoBehaviour
             Jumped = false;
             horizontal = 0;
             vertical = 0;
+            isAction = false;
         }
-
     }
 
     private void FixedUpdate()
@@ -98,8 +98,14 @@ public class CharacterController2D : MonoBehaviour
     /// </summary>
     void Action()
     {
+        if (isInventory)
+        {
 
+            isAction = false;
+
+        }
     }
+
 
     /// <summary>
     /// Проверка на движение в противополжную сторону
