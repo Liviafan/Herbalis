@@ -47,9 +47,10 @@ public class UICharacterController : MonoBehaviour
             characterController2D.Jumped = true;
         }
 
+
         if (Input.GetKeyDown(action))              //  действие
         {
-
+            characterController2D.isAction = true;
         }
 
     }
