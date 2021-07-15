@@ -32,8 +32,10 @@ public class CharacterController2D : MonoBehaviour
     private bool isLadder = false;     // флаг лесницы
     [SerializeField]
     private bool isjump = false;       // флаг прыжок
-    public KeyCode action = KeyCode.E; // клавиша действия
     public bool isStop = true;
+    [SerializeField]
+    private bool isInventory;         // флаг предмета инвентаря
+    public bool isAction; 
 
     // Start is called before the first frame update
     void Start()
@@ -76,22 +78,17 @@ public class CharacterController2D : MonoBehaviour
         {
             Move();
         }
-      
+
     }
 
     /// <summary>
     /// опрос кнопок
     /// </summary>
-    void UpdateAxis()  
+    void UpdateAxis()
     {
         //Jumped = Input.GetButtonDown("Jump");        // прыжок
-       // horizontal = Input.GetAxis("Horizontal");   // A   D
-       // vertical = Input.GetAxis("Vertical");        // W   S
-
-        if (Input.GetKeyDown(action))              // E
-        {
-
-        }
+        // horizontal = Input.GetAxis("Horizontal");   // A   D
+        // vertical = Input.GetAxis("Vertical");        // W   S
 
     }
 
@@ -146,8 +143,8 @@ public class CharacterController2D : MonoBehaviour
         {
             if (isGround) // если на земле 
             {
-               rb2d.velocity = (Vector2.up * jumpForce); // прыгай 
-               audioSourceJump.Play();
+                rb2d.velocity = (Vector2.up * jumpForce); // прыгай 
+                audioSourceJump.Play();
             }
         }
         Jumped = false;
@@ -159,10 +156,16 @@ public class CharacterController2D : MonoBehaviour
     /// <param name="other"></param>
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Ladder"))   // если таг лесница
+        //if (other.tag == "Ladder")          //(other.gameObject.CompareTag("Ladder"))   // если таг лесница
+        //{
+        //    isLadder = true;     // это лесница
+        //}
+
+        if (other.gameObject.CompareTag("Inventory"))
         {
-            isLadder = true;     // это лесница
+            isInventory = true;
         }
+
     }
 
     /// <summary>
@@ -171,17 +174,24 @@ public class CharacterController2D : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "Ladder")
+        //if (other.tag == "Ladder")
+        //{
+        //    isLadder = false;
+        //}
+
+        if (other.gameObject.CompareTag("Inventory"))
         {
-            isLadder = false;
+            isInventory = false;
         }
-     }
+
+
+    }
 
     /// <summary>
     /// Движение по лесницы
     /// </summary>
     void UpdateMoveLadder()   // Пока так дальше  будем  переделывать
-    {  
+    {
         if (isLadder) // если на леснице
         {
             rb2d.gravityScale = 0;

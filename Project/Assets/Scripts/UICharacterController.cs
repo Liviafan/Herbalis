@@ -10,6 +10,8 @@ public class UICharacterController : MonoBehaviour
     private bool directionRight = true;
     private bool onMoving;
     private bool OnMakeJump;
+    public KeyCode action = KeyCode.E; // клавиша действия
+
 
 
 
@@ -21,7 +23,8 @@ public class UICharacterController : MonoBehaviour
         Jump = 3,
         Die = 4,
         Up = 5,
-        Down = 6
+        Down = 6,
+        Action = 7
 
     }
 
@@ -39,9 +42,14 @@ public class UICharacterController : MonoBehaviour
         UpdateKeys("s", ActionType.Down);
        // UpdateKeys("space", ActionType.Jump);
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump"))     // прыжок
         {
             characterController2D.Jumped = true;
+        }
+
+        if (Input.GetKeyDown(action))              //  действие
+        {
+
         }
 
     }
